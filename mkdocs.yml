@@ -1,5 +1,6 @@
 site_name: WiDL Docs
 nav:
     - Home: index.md
+    - Content: content.md
     - About: about.md
 theme: readthedocs

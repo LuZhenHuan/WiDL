@@ -1,18 +1,11 @@
-# Welcome to MkDocs
+# Wisonic DL Platform Doc
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+该平台是系统部内部深度学习平台，旨在更方便快速的进行模型训练和trick的实现。
 
-## Commands
+## 简介
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+该项目主要借鉴github的pytorch-image-classification，集成度较高，更方便维护和更新。
 
-## Project layout
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
-        curl 'https://jaspervdj.be/lorem-markdownum/markdown.txt' > docs/about.md
+
+
