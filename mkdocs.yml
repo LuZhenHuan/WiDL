@@ -1,6 +1,7 @@
 site_name: WiDL Docs
 nav:
-    - Home: index.md
-    - Content: content.md
+    - 主页: index.md
+    - 内容索引: content.md
+    - 使用说明: instruction.md
     - About: about.md
 theme: readthedocs
