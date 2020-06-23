@@ -7,6 +7,5 @@ pytorch相关语法请参照pytorch手册：[PytorchDoc](https://pytorch.org/doc
 该项目主要借鉴github的pytorch-image-classification，集成度较高，更方便维护和更新。
 查看[详细内容页面](content.md)
 
-
-
+pytorch环境部署请参考文档[部署](./content/pytorchInstall.md)
 

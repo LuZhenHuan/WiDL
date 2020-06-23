@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Pytorch安装流程（初版） - WiDL Docs</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Pytorch\u5b89\u88c5\u6d41\u7a0b\uff08\u521d\u7248\uff09";
+    var mkdocs_page_input_path = "content\\pytorchInstall.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> WiDL Docs</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../">内容索引</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../instruction/">使用说明</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../about/">About</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">WiDL Docs</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Pytorch安装流程（初版）</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="pytorch">Pytorch安装流程（初版）</h1>
+<p>Created: Sep 19, 2019 9:49 AM
+Last Edited Time: Apr 29, 2020 10:29 AM
+Status: Archived
+Type: Technical Spec</p>
+<h2 id="_1">基本环境安装</h2>
+<ul>
+<li>Anaconda - 高质量的BLAS库（MKL），可控依赖版本。</li>
+<li>Python - 可通过Anaconda快速安装和切换</li>
+<li>CUDA - 服务器默认是CUDA 8.0，已安装</li>
+<li>强烈建议在虚拟环境下安装pytorch和实验环境，方便管理和维护且不会修改掉系统环境。</li>
+<li>Anaconda安装步骤（必要）</li>
+</ul>
+<pre><code class="bash"># 安装anaconda（请确认好每一步的yes，安装完毕后重启终端让path生效）
+# Athena
+bash /media/huangcan/share/insatllpackages/pytorchEnvAthena/Anaconda3-5.3.1-Linux-x86_64.sh
+
+# Gaea
+bash /home/share/insatllpackages/pytorchEnvGaea/Anaconda3-5.3.1-Linux-x86_64.sh
+
+# 建立新的虚拟环境，名称env_name替换为自订的名字，指定python版本为3.6
+conda create -n env_name python=3.6
+# 列出当前所有环境确认
+conda env list
+# 激活虚拟环境（优先尝试第一个，如果报错就尝试另一个命令）
+source activate env_name
+or
+conda activate env_name
+</code></pre>
+
+<h2 id="-">一、（主要-无需联网）硬拷贝虚拟环境</h2>
+<ul>
+<li>先替换pkg才能保证离线克隆环境不报错</li>
+</ul>
+<pre><code class="bash"># Athena
+cp -r /media/huangcan/share/installpackage/pytorchEnvAthena/pkgs/* ~/anaconda3/pkgs/
+conda create -n your_name --clone /media/huangcan/share/installpackage/pytorchEnvAthena/envs/torchEnv/ --offline
+
+# gaea
+cp -r /home/share/installpackage/pytorchEnvGaea/pkgs/* ~/anaconda3/pkgs/
+conda create -n your_name --clone /home/share/installpackage/pytorchEnvGaea/envs/torchEnv/ --offline
+
+****安装完成后见文档最后的验证方法****
+</code></pre>
+
+<h2 id="-_1">二、（备选-需要联网）克隆虚拟环境</h2>
+<ul>
+<li>导入完整的安装环境配置</li>
+</ul>
+<pre><code class="bash"># 导入
+conda env create -f testTorch.yaml
+
+# 导出环境语句
+# conda env export &gt; py36.yaml1
+
+****安装完成后见文档最后的验证方法****
+</code></pre>
+
+<h2 id="-_2">三、（备选-需要联网）常规联网安装方法</h2>
+<ul>
+<li>更换清华源并安装CUDA8的pytorch</li>
+</ul>
+<pre><code class="bash"># 打开该文件添加内容
+vim ~/.condarc
+
+`
+channels:
+    - defaults
+show_channel_urls: true           # 设置搜索时显示通道地址
+default_channels:
+    - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
+    - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
+custom_channels:
+    conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+    msys2: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+    bioconda: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+    menpo: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+    pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+    simpleitk: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+`
+# 查看自己本机的cuda版本，注意大写
+nvcc -V
+# 安装pytorh，取决于你的cuda版本（替换为8.0、9.0、10.0等）,具体pytorch版本见官网
+conda install pytorch==1.0.0 torchvision==0.2.1 cuda80 -c pytorch
+
+****安装完成后见文档最后的验证方法****
+</code></pre>
+
+<h2 id="-_3">（备选-需要联网）源码编译方法</h2>
+<ul>
+<li>在虚拟环境下执行如下命令</li>
+</ul>
+<pre><code class="bash"># 清理
+conda uninstall pytorch
+# 查看cuda版本，确认为8.0（注意V为大写）
+nvcc -V
+# 安装必要库
+conda install numpy pyyaml mkl=2019.3 mkl-include setuptools cmake cffi typing
+
+# GPU对LAPACK的支持，暂时不用安装
+# conda install -c pytorch magma-cuda80 # optional step
+
+# 确认软链到cuda的目录，pytorch才能识别到cuda的版本
+ls -ld /usr.local/cuda
+# clone the pytorch source code
+git clone --recursive https://github.com/pytorch/pytorch
+cd pytorch
+# make clean is needed in my case
+make clean 
+# 设置cmake
+export CMAKE_PREFIX_PATH=${CONDA_PREFIX:-&quot;$(dirname $(which conda))/../&quot;}
+python setup.py install
+
+****安装完成后见文档最后的验证方法****
+</code></pre>
+
+<h2 id="_2">验证方法</h2>
+<ul>
+<li>进python导入成功即可</li>
+</ul>
+<pre><code class="bash"># 列出当前所有环境确认
+conda env list
+# 激活虚拟环境（优先尝试第一个，如果报错就尝试另一个命令）
+source activate env_name
+or
+conda activate env_name
+# 进入python测试
+python
+</code></pre>
+
+<pre><code class="python">import torch
+print(torch.__version__)
+</code></pre>
+
+<h2 id="_3">附件</h2>
+<ul>
+<li>conda虚拟环境相关操作（需要时再操作，现在无需操作）</li>
+</ul>
+<pre><code class="bash"># 确保Anaconda安装正确
+
+# 建立新的虚拟环境，名称env_name替换为自订的名字，指定python版本为3.6
+conda create -n env_name python=3.6
+# 列出当前所有环境确认
+conda env list
+# 激活虚拟环境（优先尝试第一个，如果报错就尝试另一个命令）
+source activate env_name
+or
+conda activate env_name
+# 退出虚拟环境
+conda deactivate env_name
+
+# 删除虚拟环境
+conda remove -n env_name --all
+
+# 安装完毕（base）变为（env_name）代表激活成功
+</code></pre>
+
+<p><a href="https://www.cnblogs.com/yhjoker/p/10972795.html">yhjoker</a></p>
+<p>Pytorch 使用不同版本的 cuda, 确认本机cuda版本的几个渠道。</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
