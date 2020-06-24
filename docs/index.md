@@ -9,3 +9,5 @@ pytorch相关语法请参照pytorch手册：[PytorchDoc](https://pytorch.org/doc
 
 pytorch环境部署请参考文档[部署](./content/pytorchInstall.md)
 
+参数配置使用yaml文件，方便控制调参，文档参考[YAMLDoc]()
+
